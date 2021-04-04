@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  height: 100%;
+
+  .l-layout {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100%;
+
+    &__sidenav {
+      display: flex;
+      flex: 0 0 72px;
+      flex-flow: column nowrap;
+    }
+
+    &__body {
+      display: flex;
+      flex: 1 1 auto;
+    }
+  }
+}

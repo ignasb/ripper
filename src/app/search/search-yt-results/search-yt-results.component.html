@@ -1,0 +1,5 @@
+<mat-list>
+  <mat-list-item *ngFor="let video of results$ | async">
+    <img src="{{ video.snippet.thumbnails.default.url }}" />
+  </mat-list-item>
+</mat-list>

@@ -1,0 +1,44 @@
+@import "../../../material.scss";
+
+$linkDimensions: 72px;
+$iconDimensions: 32px;
+
+:host {
+  height: 100%;
+  width: 100%;
+  background-color: #1f1f1f;
+
+  .c-link {
+    width: 100%;
+    height: $linkDimensions;
+    width: $linkDimensions;
+    display: flex;
+    flex-flow: column nowrap;
+
+    &--active {
+      color: map-get($candy-app-primary, A700);
+    }
+
+    &::ng-deep span.mat-button-wrapper {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .c-link__title {
+      font-size: 10px;
+      display: inline-block;
+      height: 24px;
+      text-transform: uppercase;
+    }
+
+    .c-link__icon {
+      font-size: $iconDimensions;
+      height: 32px;
+      width: 32px;
+    }
+  }
+}

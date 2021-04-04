@@ -1,0 +1,8 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" autocomplete="off">
+  <mat-form-field class="c-search" appearance="outline">
+    <input matInput placeholder="Search videos..." formControlName="search" />
+    <button mat-icon-button type="submit" matSuffix>
+      <mat-icon matSuffix>search</mat-icon>
+    </button>
+  </mat-form-field>
+</form>

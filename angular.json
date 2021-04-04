@@ -20,7 +20,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/material.scss"
             ],
             "scripts": [],
             "customWebpackConfig": {
@@ -88,7 +89,7 @@
               "browserTarget": "angular-electron:build:dev"
             },
             "web": {
-              "browserTarget": "angular-electron:build:web"
+               "browserTarget": "angular-electron:build:web"
             },
             "production": {
               "browserTarget": "angular-electron:build:production"

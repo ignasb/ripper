@@ -3,6 +3,7 @@ import { SearchService } from "../../core/services/search/search.service";
 import { Observable } from "rxjs";
 import { IYtVideoListResponse, IYtVideoListResult } from "../../core/models";
 import { map } from "rxjs/operators";
+import { IpcService } from "../../core/ipc/ipc.service";
 
 @Component({
   selector: "app-search-shell",
@@ -13,7 +14,10 @@ import { map } from "rxjs/operators";
 export class SearchShellComponent implements OnInit {
   public results$: Observable<IYtVideoListResult[]>;
 
-  constructor(private searchService: SearchService) {}
+  constructor(
+    private searchService: SearchService,
+    private ipcService: IpcService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -25,5 +29,10 @@ export class SearchShellComponent implements OnInit {
     return this.searchService
       .searchVideos$(query)
       .pipe(map((response) => response.items));
+  }
+
+  public onVideoDownload(video: IYtVideoListResult): void {
+    console.log(video);
+    this.ipcService.send("download-video", video);
   }
 }

@@ -3,8 +3,11 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   Input,
+  Output,
+  EventEmitter,
 } from "@angular/core";
 import { Observable } from "rxjs";
+import { IYtVideoListResult } from "../../core/models";
 
 @Component({
   selector: "app-search-yt-results",
@@ -14,9 +17,16 @@ import { Observable } from "rxjs";
 })
 export class SearchYtResultsComponent implements OnInit {
   @Input()
-  public results$: Observable<any>;
+  public results$: Observable<IYtVideoListResult[]>;
+
+  @Output()
+  public downloadVideo = new EventEmitter<IYtVideoListResult>();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  public download(video: IYtVideoListResult): void {
+    this.downloadVideo.emit(video);
+  }
 }

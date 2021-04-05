@@ -1,0 +1,35 @@
+:host {
+  .c-video {
+    display: flex;
+    flex-flow: row nowrap;
+
+    &__thumbnail {
+      flex: 0 0 120px;
+    }
+
+    &__details {
+      display: flex;
+      flex: 1 1 auto;
+      flex-flow: column nowrap;
+      height: 90px;
+      font-size: 12px;
+    }
+
+    &__title {
+    }
+
+    &__views {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+    }
+
+    &.mat-list-item {
+      height: 100px;
+
+      &::ng-deep.mat-list-item-content {
+        width: 100%;
+      }
+    }
+  }
+}

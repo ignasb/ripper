@@ -1,5 +1,21 @@
 <mat-list>
-  <mat-list-item *ngFor="let video of results$ | async">
-    <img src="{{ video.snippet.thumbnails.default.url }}" />
+  <mat-list-item class="c-video" *ngFor="let video of results$ | async">
+    <img
+      class="c-video__thumbnail"
+      src="{{ video.snippet.thumbnails.default.url }}"
+    />
+    <div class="c-video__details">
+      <span class="c-video__title">
+        {{ video.snippet.title }}
+      </span>
+      <span class="c-video__views">
+        <mat-icon>visibility</mat-icon> {{ video.statistics.viewCount }}
+      </span>
+    </div>
+    <div class="c-video__controls">
+      <button mat-button mat-fab color="accent" (click)="download(video)">
+        <mat-icon> save_alt </mat-icon>
+      </button>
+    </div>
   </mat-list-item>
 </mat-list>

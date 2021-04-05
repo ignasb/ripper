@@ -1,4 +1,7 @@
 <app-search-yt-query
   (searchSubmit)="onSearchSubmit($event)"
 ></app-search-yt-query>
-<app-search-yt-results [results$]="results$"></app-search-yt-results>
+<app-search-yt-results
+  [results$]="results$"
+  (downloadVideo)="onVideoDownload($event)"
+></app-search-yt-results>

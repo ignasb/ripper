@@ -1,6 +1,7 @@
-import { app, BrowserWindow, screen, ipcMain } from "electron";
+import { app, BrowserWindow, screen } from "electron";
 import * as path from "path";
 import * as url from "url";
+import { ripperIpcMain } from "./lib/ipc-main";
 
 // Initialize remote module
 require("@electron/remote/main").initialize();
@@ -26,6 +27,8 @@ function createWindow(): BrowserWindow {
       enableRemoteModule: true, // true if you want to run 2e2 test  with Spectron or use remote module in renderer context (ie. Angular)
     },
   });
+
+  win.webContents.openDevTools();
 
   if (serve) {
     win.webContents.openDevTools();
@@ -83,7 +86,4 @@ try {
   // throw e;
 }
 
-ipcMain.on("download-video", (event, arg) => {
-  console.log(event);
-  console.log(arg);
-});
+ripperIpcMain.initialize();

@@ -3,7 +3,7 @@ import { SearchService } from "../../core/services/search/search.service";
 import { Observable } from "rxjs";
 import { IYtVideoListResponse, IYtVideoListResult } from "../../core/models";
 import { map } from "rxjs/operators";
-import { IpcService } from "../../core/ipc/ipc.service";
+import { IpcService } from "../../core/services/ipc/ipc.service";
 
 @Component({
   selector: "app-search-shell",

@@ -1,25 +1,20 @@
-import { ipcMain } from "electron";
-import ytdl = require("ytdl-core");
+import { BrowserWindow, ipcMain } from "electron";
+import { download } from "./downloader";
+import { onStreamUpdate } from "./stream";
+import { EMessages } from "./models";
+import fs = require("fs");
+
 import { app } from "electron";
-const fs = require("fs");
 
 export const ripperIpcMain = (() => {
-  const initialize = () => {
-    ipcMain.on("download-video", (event, arg) => {
-      const x = download(arg.id);
+  const initialize = (win: BrowserWindow) => {
+    ipcMain.on(EMessages.DownloadVideo, (event, { id, title }) => {
+      const readableStream = download(id);
+      const path = `${app.getPath("music")}/${title}.mp4`;
+      const writableStream = fs.createWriteStream(path);
+      onStreamUpdate(id, readableStream, win);
+      readableStream.pipe(writableStream);
     });
   };
-
-  const download = async (id: string): Promise<any> => {
-    const info = await ytdl.getInfo(id);
-    console.log(info.videoDetails.video_url);
-    const savePath = `${app.getPath("music")}/${
-      info.player_response.videoDetails.title
-    }.mp4`;
-    ytdl(info.videoDetails.video_url, {
-      quality: "highestaudio",
-    }).pipe(fs.createWriteStream(savePath));
-  };
-
   return { initialize };
 })();

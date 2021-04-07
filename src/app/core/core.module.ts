@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { SidenavComponent } from "./sidenav/sidenav.component";
 import { LayoutComponent } from "./layout/layout.component";
@@ -8,6 +8,8 @@ import { RouterModule } from "@angular/router";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { SharedModule } from "../shared/shared.module";
+import { IpcService } from "./services/ipc/ipc.service";
+import { appInitializer } from "./app-initializer";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -30,5 +32,15 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     SharedModule,
   ],
   exports: [LayoutComponent, HttpClientModule, SharedModule],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (ipcService: IpcService) => {
+        return () => appInitializer(ipcService);
+      },
+      multi: true,
+      deps: [IpcService],
+    },
+  ],
 })
 export class CoreModule {}

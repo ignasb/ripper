@@ -5,6 +5,11 @@ export interface IDownloadStatus {
   success: boolean;
 }
 
+export interface IDownloadProgress {
+  id: string;
+  progress: number;
+}
+
 export interface IDownloadStreamMetaData {
   id: string;
   progress: number;

@@ -2,11 +2,14 @@ import { Readable } from "node:stream";
 import { BrowserWindow } from "electron";
 import { EMessages, IDownloadProgress } from "./models";
 import { BehaviorSubject, merge, Observable, Subscription } from "rxjs";
+import fs = require("fs");
 import {
   debounceTime,
   distinctUntilChanged,
   throttleTime,
 } from "rxjs/operators";
+import Ffmpeg = require("fluent-ffmpeg");
+import pathToFFmpeg = require("ffmpeg-static");
 
 const DELAY_TIME = 100;
 
@@ -16,10 +19,13 @@ enum EStreamEvents {
   Error = "error",
 }
 
+Ffmpeg.setFfmpegPath(pathToFFmpeg);
+
 export const onStreamUpdate = (
   id: string,
   stream: Readable,
-  win: BrowserWindow
+  win: BrowserWindow,
+  path: string
 ): void => {
   const progress$ = new BehaviorSubject<IDownloadProgress>({ id, progress: 0 });
   const progressEmitter$ = getProgressEmitter$(progress$);
@@ -39,12 +45,22 @@ export const onStreamUpdate = (
   );
 
   stream.on(EStreamEvents.End, () => {
-    dispose(stream, emitterSubscription);
-    win.webContents.send(EMessages.DownloadEnded, id);
+    convertVideoToMp3(stream, path)
+      .then(
+        () => {
+          win.webContents.send(EMessages.ConvertingToMp3, id);
+        },
+        () => {
+          win.webContents.send(EMessages.ConvertingToMp3Failed, id);
+        }
+      )
+      .finally(() => {
+        dispose(stream, emitterSubscription, path);
+      });
   });
 
   stream.on(EStreamEvents.Error, () => {
-    dispose(stream, emitterSubscription);
+    dispose(stream, emitterSubscription, path);
     win.webContents.send(EMessages.DownloadFailed, id);
   });
 };
@@ -60,10 +76,27 @@ const getProgressEmitter$ = (
   );
 };
 
-const dispose = (stream: Readable, subscription: Subscription): void => {
+const convertVideoToMp3 = (stream: Readable, path: string): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    new Ffmpeg(path)
+      .audioCodec("libmp3lame")
+      .audioBitrate(192)
+      .output(`${path}.mp3`)
+      .on("error", (err) => {
+        reject();
+      })
+      .on("end", () => {
+        resolve();
+      })
+      .run();
+  });
+};
+
+const dispose = (stream: Readable, subscription: Subscription, path): void => {
   // Need to wait for DELAY_TIME before unsubscribing, otherwise last debounced/throttled values wont be emitter.
   setTimeout(() => {
     subscription.unsubscribe();
     stream.destroy();
+    fs.unlinkSync(path);
   }, DELAY_TIME);
 };

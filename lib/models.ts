@@ -20,5 +20,8 @@ export enum EMessages {
   DownloadEnded = "download-ended",
   DownloadFailed = "download-failed",
   DownloadProgress = "download-progress",
+  ConvertingToMp3 = "converting-to-mp3",
+  ConvertingToMp3Ended = "converting-to-mp3-ended",
+  ConvertingToMp3Failed = "converting-to-mp3-failed",
   Error = "error",
 }

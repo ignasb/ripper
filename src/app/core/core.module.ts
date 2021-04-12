@@ -10,6 +10,9 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { SharedModule } from "../shared/shared.module";
 import { IpcService } from "./services/ipc/ipc.service";
 import { appInitializer } from "./app-initializer";
+import { Store } from "@ngrx/store";
+import { IAppState } from "../store/reducers";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -35,11 +38,15 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   providers: [
     {
       provide: APP_INITIALIZER,
-      useFactory: (ipcService: IpcService) => {
-        return () => appInitializer(ipcService);
+      useFactory: (
+        ipcService: IpcService,
+        store: Store<IAppState>,
+        snackBar: MatSnackBar
+      ) => {
+        return () => appInitializer(ipcService, store, snackBar);
       },
       multi: true,
-      deps: [IpcService],
+      deps: [IpcService, Store, MatSnackBar],
     },
   ],
 })

@@ -17,11 +17,11 @@ export interface IDownloadStreamMetaData {
 
 export enum EMessages {
   DownloadVideo = "download-video",
-  DownloadEnded = "download-ended",
-  DownloadFailed = "download-failed",
+  DownloadSucess = "download-success",
+  DownloadFail = "download-fail",
   DownloadProgress = "download-progress",
   ConvertingToMp3 = "converting-to-mp3",
-  ConvertingToMp3Ended = "converting-to-mp3-ended",
-  ConvertingToMp3Failed = "converting-to-mp3-failed",
+  ConvertingToMp3Sucess = "converting-to-mp3-success",
+  ConvertingToMp3Fail = "converting-to-mp3-fail",
   Error = "error",
 }

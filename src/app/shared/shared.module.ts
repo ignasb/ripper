@@ -12,6 +12,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective],
@@ -26,6 +27,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatSnackBarModule,
   ],
   exports: [
     BrowserAnimationsModule,
@@ -38,6 +40,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatSnackBarModule,
   ],
 })
 export class SharedModule {}

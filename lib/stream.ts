@@ -36,6 +36,8 @@ export const onStreamUpdate = (
     });
   });
 
+  win.webContents.send(EMessages.DownloadVideo, id);
+
   stream.on(
     EStreamEvents.Progress,
     (chunk: number, downloaded: number, total: number) => {
@@ -45,13 +47,15 @@ export const onStreamUpdate = (
   );
 
   stream.on(EStreamEvents.End, () => {
+    win.webContents.send(EMessages.ConvertingToMp3, id);
+
     convertVideoToMp3(stream, path)
       .then(
         () => {
-          win.webContents.send(EMessages.ConvertingToMp3, id);
+          win.webContents.send(EMessages.ConvertingToMp3Sucess, id);
         },
         () => {
-          win.webContents.send(EMessages.ConvertingToMp3Failed, id);
+          win.webContents.send(EMessages.ConvertingToMp3Fail, id);
         }
       )
       .finally(() => {
@@ -61,7 +65,7 @@ export const onStreamUpdate = (
 
   stream.on(EStreamEvents.Error, () => {
     dispose(stream, emitterSubscription, path);
-    win.webContents.send(EMessages.DownloadFailed, id);
+    win.webContents.send(EMessages.DownloadFail, id);
   });
 };
 

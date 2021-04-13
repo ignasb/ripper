@@ -1,35 +1,57 @@
 :host {
+  .l-list {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+    overflow: auto;
+
+    mat-button {
+      padding: 0px;
+    }
+  }
+
   .c-video {
     display: flex;
+    width: 100%;
     flex-flow: row nowrap;
+    align-items: center;
+    padding: 10px 0px;
 
     &__thumbnail {
+      display: flex;
       flex: 0 0 120px;
     }
 
-    &__details {
-      display: flex;
-      flex: 1 1 auto;
-      flex-flow: column nowrap;
-      height: 90px;
-      font-size: 12px;
-    }
-
     &__title {
+      display: flex;
+      flex: 1 1;
+      height: 100%;
+      overflow: hidden;
+
+      h4 {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0px 10px;
+        text-align: left;
+      }
     }
 
-    &__views {
+    &__controls {
       display: flex;
+      flex: 0 0 20px;
       flex-flow: row nowrap;
       align-items: center;
     }
+  }
 
-    &.mat-list-item {
-      height: 100px;
+  .mat-list-item {
+    height: 100px;
+    overflow: hidden;
 
-      &::ng-deep.mat-list-item-content {
-        width: 100%;
-      }
+    &::ng-deep.mat-list-item-content {
+      width: 100%;
+      padding: 0px;
     }
   }
 }

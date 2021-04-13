@@ -1,7 +1,12 @@
-<app-search-yt-query
-  (searchSubmit)="onSearchSubmit($event)"
-></app-search-yt-query>
-<app-search-yt-results
-  [results$]="results$"
-  (downloadVideo)="onVideoDownload($event)"
-></app-search-yt-results>
+<div class="l-search">
+  <app-search-yt-query
+    (searchSubmit)="onSearchSubmit($event)"
+  ></app-search-yt-query>
+</div>
+<div class="l-results" *ngIf="results$ | async">
+  <h2>Found videos ({{ resultsCount$ | async }})</h2>
+  <app-search-yt-results
+    [results$]="results$"
+    (downloadVideo)="onVideoDownload($event)"
+  ></app-search-yt-results>
+</div>

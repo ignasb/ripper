@@ -8,15 +8,15 @@ import { IYtSearchResponse, IYtVideoListResponse } from "../../models";
   providedIn: "root",
 })
 export class SearchService {
-  private API_KEY = "AIzaSyArd2rZhbLS3b5S3p8IXLnokfl_6i2f4vw";
   baseApi = "https://youtube.googleapis.com/youtube/v3/";
-  key = "AIzaSyArd2rZhbLS3b5S3p8IXLnokfl_6i2f4vw";
+  key = "AIzaSyAme90X3RnCgADZphuXHApfDRIn0X6vmA8";
+  maxResults = 25;
 
   constructor(private http: HttpClient) {}
 
   private getSearchResults$(search: string): Observable<IYtSearchResponse> {
-    const { baseApi, key } = this;
-    const path = `${baseApi}search?q=${search}&key=${key}`;
+    const { baseApi, key, maxResults } = this;
+    const path = `${baseApi}search?q=${search}&maxResults=${maxResults}&key=${key}`;
 
     return this.http.get<IYtSearchResponse>(path);
   }

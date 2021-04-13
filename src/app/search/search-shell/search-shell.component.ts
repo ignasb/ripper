@@ -19,6 +19,8 @@ import { IActiveDownload } from "../../core/models/download";
 export class SearchShellComponent implements OnInit {
   public results$: Observable<IYtVideoListResult[]>;
 
+  public resultsCount$: Observable<number>;
+
   constructor(
     private searchService: SearchService,
     private ipcService: IpcService,
@@ -33,6 +35,7 @@ export class SearchShellComponent implements OnInit {
 
   public onSearchSubmit(query: string): void {
     this.results$ = this.getVideoResults$(query);
+    this.resultsCount$ = this.results$.pipe(map((results) => results.length));
   }
 
   private getVideoResults$(query: string): Observable<IYtVideoListResult[]> {

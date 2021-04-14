@@ -30,7 +30,6 @@
     "@ngrx/store-devtools": "11.1.0",
     "ffmpeg-static": "4.3.0",
     "fluent-ffmpeg": "2.1.2",
-    "googleapis": "70.0.0",
     "keytar": "7.6.0",
     "ytdl-core": "4.5.0"
   },

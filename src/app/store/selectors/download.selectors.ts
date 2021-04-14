@@ -6,6 +6,7 @@ import {
   Store,
 } from "@ngrx/store";
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { IActiveDownload } from "../../core/models/download";
 import { IAppState } from "../reducers";
 import { IDownloadState } from "../reducers/download.reducer";
@@ -30,6 +31,9 @@ const getActiveDownloadById = createSelector(
 @Injectable()
 export class DownloadSelectors {
   public activeDownloads$ = this.store.pipe(select(getActiveDownloads));
+  public activeDownloadsCount$ = this.activeDownloads$.pipe(
+    map((downloads) => downloads.length)
+  );
 
   constructor(private readonly store: Store<IAppState>) {}
 

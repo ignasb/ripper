@@ -5,6 +5,12 @@
   routerLink="{{ link.path }}"
   routerLinkActive="c-link--active"
 >
-  <mat-icon class="c-link__icon">{{ link.icon }}</mat-icon>
+  <mat-icon
+    matBadge="{{ downloadsCount$ | async }}"
+    matBadgeColor="warn"
+    matBadgeHidden="{{ !isBadgeVisible(link.path, downloadsCount$ | async) }}"
+    class="c-link__icon"
+    >{{ link.icon }}</mat-icon
+  >
   <span class="c-link__title">{{ link.title }}</span>
 </button>

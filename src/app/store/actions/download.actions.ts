@@ -2,17 +2,17 @@ import { createAction, props } from "@ngrx/store";
 import { IActiveDownload } from "../../core/models/download";
 
 export const downloadStarted = createAction(
-  "[Download] START_DOWNLOAD",
+  "[Download] DOWNLOAD_START",
   props<{ download: IActiveDownload }>()
 );
 
 export const downloadSuccess = createAction(
-  "[Download] FINISHED_DOWNLOAD",
+  "[Download] DOWNLOAD_SUCCESS",
   props<{ id: string }>()
 );
 
 export const downloadFail = createAction(
-  "[Download] FAILED_DOWNLOAD",
+  "[Download] DOWNLOAD_FAIL",
   props<{ id: string }>()
 );
 

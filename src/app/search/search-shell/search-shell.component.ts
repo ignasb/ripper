@@ -7,8 +7,9 @@ import { IpcService } from "../../core/services/ipc/ipc.service";
 import { EMessages } from "../../../../lib/models";
 import { IAppState } from "../../store/reducers";
 import { Store } from "@ngrx/store";
-import { DownloadActions } from "../../store/actions";
+import { DownloadActions, SearchActions } from "../../store/actions";
 import { IActiveDownload } from "../../core/models/download";
+import { SearchSelectors } from "../../store/selectors/search.selectors";
 
 @Component({
   selector: "app-search-shell",
@@ -17,31 +18,29 @@ import { IActiveDownload } from "../../core/models/download";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchShellComponent implements OnInit {
+  public query$: Observable<string>;
   public results$: Observable<IYtVideoListResult[]>;
-
   public resultsCount$: Observable<number>;
+  public isLoading$: Observable<boolean>;
 
   constructor(
-    private searchService: SearchService,
-    private ipcService: IpcService,
-    private readonly store: Store<IAppState>
+    private readonly searchService: SearchService,
+    private readonly ipcService: IpcService,
+    private readonly store: Store<IAppState>,
+    private readonly searchSelectors: SearchSelectors
   ) {
-    this.ipcService.on(EMessages.DownloadSucess, (event, data) => {
-      console.log(data);
-    });
+    this.results$ = searchSelectors.videos$;
+    this.resultsCount$ = searchSelectors.videos$.pipe(
+      map((results) => results.length)
+    );
+    this.query$ = searchSelectors.query$;
+    this.isLoading$ = searchSelectors.isLoading$;
   }
 
   ngOnInit(): void {}
 
   public onSearchSubmit(query: string): void {
-    this.results$ = this.getVideoResults$(query);
-    this.resultsCount$ = this.results$.pipe(map((results) => results.length));
-  }
-
-  private getVideoResults$(query: string): Observable<IYtVideoListResult[]> {
-    return this.searchService
-      .searchVideos$(query)
-      .pipe(map((response) => response.items));
+    this.store.dispatch(SearchActions.searchVideos({ query }));
   }
 
   public onVideoDownload(video: IYtVideoListResult): void {

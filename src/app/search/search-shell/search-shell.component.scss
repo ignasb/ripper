@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   flex-flow: column nowrap;
+  position: relative;
 
   .l-search,
   .l-results {
@@ -20,5 +21,16 @@
     flex: 1 1;
     flex-flow: column nowrap;
     overflow: auto;
+  }
+
+  .l-loading {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    opacity: 0.8;
+    background-color: #383838;
   }
 }

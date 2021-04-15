@@ -14,3 +14,13 @@ export const searchVideosFail = createAction(
   "[Search] SEARCH_VIDEOS_FAIL",
   props<{ error: string }>()
 );
+
+export const disableDownload = createAction(
+  "[Search] DISABLE_DOWNLOAD",
+  props<{ id: string }>()
+);
+
+export const enableDownload = createAction(
+  "[Search] ENABLE_DOWNLOAD",
+  props<{ id: string }>()
+);

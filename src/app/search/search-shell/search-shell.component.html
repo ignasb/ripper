@@ -7,7 +7,7 @@
 <div class="l-results" *ngIf="resultsCount$ | async">
   <h2>Found videos ({{ resultsCount$ | async }})</h2>
   <app-search-yt-results
-    [results$]="results$"
+    [results]="results$ | async"
     (downloadVideo)="onVideoDownload($event)"
   ></app-search-yt-results>
 </div>

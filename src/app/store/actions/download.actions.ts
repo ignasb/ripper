@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IActiveDownload } from "../../core/models/download";
 
-export const downloadStarted = createAction(
+export const downloadStart = createAction(
   "[Download] DOWNLOAD_START",
   props<{ download: IActiveDownload }>()
 );

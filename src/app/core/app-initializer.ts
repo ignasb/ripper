@@ -7,8 +7,7 @@ import { IpcService } from "./services/ipc/ipc.service";
 
 export const appInitializer = (
   ipcService: IpcService,
-  store: Store<IAppState>,
-  snackBar: MatSnackBar
+  store: Store<IAppState>
 ): void => {
   const onProgressUpdate = (event, { id, progress }) => {
     store.dispatch(DownloadActions.updateDownloadProgress({ id, progress }));
@@ -28,7 +27,6 @@ export const appInitializer = (
 
   const onConvertToMp3Success = (event, id) => {
     store.dispatch(DownloadActions.convertToMp3Success({ id }));
-    snackBar.open(`Saved ${id}`);
   };
 
   const onConvertToMp3Fail = (event, id) => {
@@ -36,7 +34,6 @@ export const appInitializer = (
   };
 
   const onDowloadStarted = (event, id) => {
-    snackBar.open(`Started downloading ${id}`);
     // store.dispatch(DownloadActions.downloadStarted({ id }));
   };
 

@@ -38,12 +38,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   providers: [
     {
       provide: APP_INITIALIZER,
-      useFactory: (
-        ipcService: IpcService,
-        store: Store<IAppState>,
-        snackBar: MatSnackBar
-      ) => {
-        return () => appInitializer(ipcService, store, snackBar);
+      useFactory: (ipcService: IpcService, store: Store<IAppState>) => {
+        return () => appInitializer(ipcService, store);
       },
       multi: true,
       deps: [IpcService, Store, MatSnackBar],

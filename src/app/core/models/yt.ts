@@ -12,6 +12,9 @@ interface IYtBaseResponse {
   };
 }
 
+export interface ISearchResult extends IYtVideoListResult {
+  isDownloadDisabled: boolean;
+}
 export interface IYtSearchResult {
   etag: string;
   id: {

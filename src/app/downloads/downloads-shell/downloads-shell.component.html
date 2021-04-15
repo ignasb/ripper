@@ -1,8 +1,1 @@
-<p>downloads-shell works!</p>
-<button mat-button color="primary">Primary</button>
-
-<mat-list role="list">
-  <mat-list-item *ngFor="let download of downloads$ | async" role="listitem"
-    >{{ download.title }} {{ download.progress }}
-  </mat-list-item>
-</mat-list>
+<app-downloads-list [downloads$]="downloads$"></app-downloads-list>

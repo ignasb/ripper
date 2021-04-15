@@ -4,9 +4,10 @@ import { CommonModule } from "@angular/common";
 import { DownloadsRoutingModule } from "./downloads-routing.module";
 import { DownloadsShellComponent } from "./downloads-shell/downloads-shell.component";
 import { SharedModule } from "../shared/shared.module";
+import { DownloadsListComponent } from './downloads-list/downloads-list.component';
 
 @NgModule({
-  declarations: [DownloadsShellComponent],
+  declarations: [DownloadsShellComponent, DownloadsListComponent],
   imports: [CommonModule, DownloadsRoutingModule, SharedModule],
   exports: [],
 })

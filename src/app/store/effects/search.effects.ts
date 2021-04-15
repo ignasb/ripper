@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
+import { ChangeDetectorRef, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap } from "rxjs/operators";
+import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { SearchService } from "../../core/services/search/search.service";
-import { SearchActions } from "../actions";
+import { DownloadActions, SearchActions } from "../actions";
 
 @Injectable()
 export class SearchEffects {
@@ -18,6 +18,28 @@ export class SearchEffects {
           catchError((error) => of(SearchActions.searchVideosFail({ error })))
         )
       )
+    )
+  );
+
+  public downloadStart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(DownloadActions.downloadStart),
+      map(({ download }) => SearchActions.disableDownload({ id: download.id }))
+    )
+  );
+
+  public fileSave$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(DownloadActions.convertToMp3Success),
+      map((id) => SearchActions.enableDownload(id))
+    )
+  );
+
+  public fileSaveFail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(DownloadActions.convertToMp3Fail, DownloadActions.downloadFail),
+      tap((error) => console.log(error)),
+      map((id) => SearchActions.enableDownload(id))
     )
   );
 

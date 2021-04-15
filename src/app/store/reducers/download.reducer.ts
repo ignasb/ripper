@@ -12,7 +12,7 @@ export const initialState: IDownloadState = {
 
 export const downloadReducer = createReducer<IDownloadState>(
   initialState,
-  on(DownloadActions.downloadStarted, (state, { download }) => ({
+  on(DownloadActions.downloadStart, (state, { download }) => ({
     ...state,
     activeDownloads: [...state.activeDownloads, download],
   })),

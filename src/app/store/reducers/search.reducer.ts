@@ -1,9 +1,9 @@
 import { createReducer, on } from "@ngrx/store";
-import { IYtVideoListResult } from "../../core/models";
+import { ISearchResult } from "../../core/models";
 import { SearchActions } from "../actions";
 
 export interface ISearchState {
-  videos: IYtVideoListResult[];
+  videos: ISearchResult[];
   query: string;
   error: string;
   isLoading: boolean;
@@ -32,5 +32,24 @@ export const searchReducer = createReducer<ISearchState>(
     ...state,
     isLoading: false,
     error,
+  })),
+  on(SearchActions.disableDownload, (state, { id }) => ({
+    ...state,
+    videos: toggleVideoDownload(state.videos, id, true),
+  })),
+  on(SearchActions.enableDownload, (state, { id }) => ({
+    ...state,
+    videos: toggleVideoDownload(state.videos, id, false),
   }))
 );
+
+const toggleVideoDownload = (
+  videos: ISearchResult[],
+  id: string,
+  disabled: boolean
+): ISearchResult[] => {
+  return videos.map((video) => ({
+    ...video,
+    isDownloadDisabled: video.id === id ? disabled : video.isDownloadDisabled,
+  }));
+};

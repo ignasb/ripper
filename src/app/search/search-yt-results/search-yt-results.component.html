@@ -1,8 +1,10 @@
 <mat-list class="l-list">
   <button
     mat-button
-    *ngFor="let video of results$ | async"
+    *ngFor="let video of results"
     (click)="download(video)"
+    [disabled]="video.isDownloadDisabled"
+    [ngClass]="{ 'c-download__btn--disabled': video.isDownloadDisabled }"
   >
     <mat-list-item>
       <div class="c-video">

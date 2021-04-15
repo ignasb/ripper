@@ -1,26 +1,29 @@
 :host {
-  .l-list {
-    display: flex;
-    flex-flow: column nowrap;
-    height: 100%;
-    overflow: auto;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
 
-    mat-button {
-      padding: 0px;
-    }
+  .l-downloads {
+    display: flex;
+    flex: 1 1;
+    flex-flow: column nowrap;
+    overflow: auto;
+    padding: 0px 30px;
   }
 
-  .c-video {
+  .l-download {
     display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+  }
+
+  .c-download {
+    display: flex;
+    flex: 0 0 100%;
     width: 100%;
     flex-flow: row nowrap;
     align-items: center;
     padding: 10px 0px;
-
-    &__thumbnail {
-      display: flex;
-      flex: 0 0 120px;
-    }
 
     &__title {
       display: flex;
@@ -36,13 +39,11 @@
         text-align: left;
       }
     }
+  }
 
-    &__controls {
-      display: flex;
-      flex: 0 0 20px;
-      flex-flow: row nowrap;
-      align-items: center;
-    }
+  .l-status {
+    display: flex;
+    flex: 0 0 12px;
   }
 
   .mat-list-item {
@@ -52,12 +53,6 @@
     &::ng-deep.mat-list-item-content {
       width: 100%;
       padding: 0px;
-    }
-  }
-
-  .c-download__btn {
-    &--disabled {
-      opacity: 0.1;
     }
   }
 }

@@ -1,19 +1,10 @@
-import { BrowserWindow, ipcMain } from "electron";
-import { download } from "./downloader";
-import { onStreamUpdate } from "./stream";
-import { EMessages } from "./models";
-import fs = require("fs");
-import { app } from "electron";
+import { BrowserWindow, app } from "electron";
+import { initilizeDownloader } from "./downloader";
 
 export const ripperIpcMain = (() => {
   const initialize = (win: BrowserWindow) => {
-    ipcMain.on(EMessages.DownloadVideo, (event, { id, title }) => {
-      const readableStream = download(id);
-      const path = `${app.getPath("music")}/${title}`;
-      const writableStream = fs.createWriteStream(path);
-      onStreamUpdate(id, readableStream, win, path);
-      readableStream.pipe(writableStream);
-    });
+    const BASE_PATH = app.getPath("music");
+    initilizeDownloader(win, BASE_PATH);
   };
   return { initialize };
 })();

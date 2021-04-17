@@ -26,6 +26,7 @@ function createWindow(): BrowserWindow {
       contextIsolation: false, // false if you want to run 2e2 test with Spectron
       enableRemoteModule: true, // true if you want to run 2e2 test  with Spectron or use remote module in renderer context (ie. Angular)
     },
+    show: false,
   });
 
   if (serve) {
@@ -64,7 +65,10 @@ try {
   app.on("ready", () =>
     setTimeout(() => {
       createWindow();
-      ripperIpcMain.initialize(win);
+      win.once("ready-to-show", () => {
+        ripperIpcMain.initialize(win);
+        win.show();
+      });
     }, 400)
   );
 

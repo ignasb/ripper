@@ -15,8 +15,12 @@
         <div class="c-video__title">
           <h4>{{ video.snippet.title }}</h4>
         </div>
-        <div class="c-video__controls">
-          <mat-icon> save_alt </mat-icon>
+        <div class="c-video__status">
+          <mat-icon
+            [ngClass]="{ 'c-status__icon--hidden': !video.isDownloaded }"
+            >done</mat-icon
+          >
+          <mat-icon>save_alt</mat-icon>
         </div>
       </div>
     </mat-list-item>

@@ -14,6 +14,7 @@ interface IYtBaseResponse {
 
 export interface ISearchResult extends IYtVideoListResult {
   isDownloadDisabled: boolean;
+  isDownloaded: boolean;
 }
 export interface IYtSearchResult {
   etag: string;

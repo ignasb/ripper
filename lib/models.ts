@@ -1,5 +1,3 @@
-import { MoreVideoDetails, videoInfo } from "ytdl-core";
-
 export interface IDownloadStatus {
   msg: string;
   success: boolean;
@@ -24,4 +22,5 @@ export enum EMessages {
   ConvertingToMp3Sucess = "converting-to-mp3-success",
   ConvertingToMp3Fail = "converting-to-mp3-fail",
   Error = "error",
+  AvailableSongs = "available-songs",
 }

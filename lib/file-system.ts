@@ -1,19 +1,17 @@
-import { access, mkdir } from "fs";
-import { Observable } from "rxjs";
-import { app } from "electron";
-import ytdl = require("ytdl-core");
+import { BrowserWindow } from "electron";
+import { readdir } from "fs";
+import { EMessages } from "./models";
 
-export const ripperFs = (() => {
-  const BASE_PATH = app.getPath("music");
+export const initializeFs = (win: BrowserWindow, path: string): void => {
+  readMusicFiles(win, path);
+};
 
-  const isPathExist = (path: string): Observable<boolean> => {};
-
-  const createFolder = (name: string): Observable<boolean> => {};
-
-  const writeMetaData = (path: string, data): Observable<any> => {};
-
-  return {
-    createFolder,
-    writeMetaData,
-  };
-})();
+const readMusicFiles = (win: BrowserWindow, path: string): void => {
+  readdir(path, (err, files) => {
+    const musicFiles = files.filter((file) => file.match(/.mp3/g));
+    win.webContents.send(
+      EMessages.AvailableSongs,
+      musicFiles.map((file) => file.replace(".mp3", ""))
+    );
+  });
+};

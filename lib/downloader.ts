@@ -21,7 +21,6 @@ const onDownloadVideo = (
   const mp3Path = `${path}/${title}`;
   const readableStream = download(id);
   const writableStream = fs.createWriteStream(mp3Path);
-  console.log(mp3Path);
   onStreamUpdate(id, readableStream, win, mp3Path);
   readableStream.pipe(writableStream);
 };

@@ -1,7 +1,6 @@
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { Store } from "@ngrx/store";
 import { EMessages } from "../../../lib/models";
-import { DownloadActions } from "../store/actions";
+import { DownloadActions, PlaylistActions } from "../store/actions";
 import { IAppState } from "../store/reducers";
 import { IpcService } from "./services/ipc/ipc.service";
 
@@ -37,6 +36,11 @@ export const appInitializer = (
     // store.dispatch(DownloadActions.downloadStarted({ id }));
   };
 
+  const onAvailableSongs = (event, songs) => {
+    store.dispatch(PlaylistActions.initializePlaylist({ songs }));
+    console.log(songs);
+  };
+
   ipcService.on(EMessages.DownloadProgress, onProgressUpdate);
   ipcService.on(EMessages.DownloadFail, onDownloadError);
   ipcService.on(EMessages.DownloadSucess, onDownloadSuccess);
@@ -45,4 +49,6 @@ export const appInitializer = (
   ipcService.on(EMessages.ConvertingToMp3Sucess, onConvertToMp3Success);
   ipcService.on(EMessages.ConvertingToMp3Fail, onConvertToMp3Fail);
   ipcService.on(EMessages.DownloadVideo, onDowloadStarted);
+
+  ipcService.on(EMessages.AvailableSongs, onAvailableSongs);
 };

@@ -1,14 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-} from "@angular/core";
-import { SearchService } from "../../core/services/search/search.service";
-import { Observable, Subscription } from "rxjs";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { combineLatest, Observable, Subscription } from "rxjs";
 import { ISearchResult, IYtVideoListResult } from "../../core/models";
-import { map, delay } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { IpcService } from "../../core/services/ipc/ipc.service";
 import { EMessages } from "../../../../lib/models";
 import { IAppState } from "../../store/reducers";
@@ -16,6 +9,7 @@ import { Store } from "@ngrx/store";
 import { DownloadActions, SearchActions } from "../../store/actions";
 import { IActiveDownload } from "../../core/models/download";
 import { SearchSelectors } from "../../store/selectors/search.selectors";
+import { PlaylistSelectors } from "../../store/selectors/playlist.selectors";
 
 @Component({
   selector: "app-search-shell",
@@ -34,9 +28,13 @@ export class SearchShellComponent implements OnInit, OnDestroy {
     private readonly ipcService: IpcService,
     private readonly store: Store<IAppState>,
     private readonly searchSelectors: SearchSelectors,
+    private readonly playlistSelectors: PlaylistSelectors,
     private readonly cd: ChangeDetectorRef
   ) {
-    this.results$ = searchSelectors.videos$;
+    this.results$ = this.getResults$(
+      searchSelectors.videos$,
+      playlistSelectors.songs$
+    );
     this.resultsCount$ = searchSelectors.videos$.pipe(
       map((results) => results.length)
     );
@@ -45,7 +43,7 @@ export class SearchShellComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const resSub = this.results$.pipe(delay(0)).subscribe(() => {
+    const resSub = this.results$.subscribe(() => {
       this.cd.detectChanges();
     });
     this.subscription.add(resSub);
@@ -71,5 +69,19 @@ export class SearchShellComponent implements OnInit, OnDestroy {
       id: video.id,
       title: video.snippet.title,
     });
+  }
+
+  private getResults$(
+    results$: Observable<ISearchResult[]>,
+    songs$: Observable<string[]>
+  ): Observable<ISearchResult[]> {
+    return combineLatest([results$, songs$]).pipe(
+      map(([results, songs]) =>
+        results.map((result) => ({
+          ...result,
+          isDownloaded: songs.includes(result.snippet.title),
+        }))
+      )
+    );
   }
 }

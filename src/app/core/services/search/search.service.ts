@@ -10,7 +10,7 @@ import { IYtSearchResponse, IYtVideoListResponse } from "../../models";
 export class SearchService {
   private baseApi = "https://youtube.googleapis.com/youtube/v3/";
   private key = "AIzaSyAme90X3RnCgADZphuXHApfDRIn0X6vmA8";
-  private maxResults = 11;
+  private maxResults = 10;
 
   constructor(private http: HttpClient) {}
 

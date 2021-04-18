@@ -13,7 +13,11 @@
           src="{{ video.snippet.thumbnails.default.url }}"
         />
         <div class="c-video__title">
-          <h4>{{ video.snippet.title }}</h4>
+          <h4>
+            {{ video.snippet.title }}
+            <span>{{ video.contentDetails.duration }}</span>
+          </h4>
+          <span> </span>
         </div>
         <div class="c-video__status">
           <mat-icon

@@ -4,7 +4,6 @@ import {
   ChangeDetectionStrategy,
   Input,
 } from "@angular/core";
-import { Observable } from "rxjs";
 import { IActiveDownload } from "../../core/models/download";
 
 @Component({
@@ -15,7 +14,7 @@ import { IActiveDownload } from "../../core/models/download";
 })
 export class DownloadsListComponent implements OnInit {
   @Input()
-  public downloads$: Observable<IActiveDownload[]>;
+  public downloads: IActiveDownload[];
 
   constructor() {}
 

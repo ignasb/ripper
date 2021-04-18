@@ -14,7 +14,10 @@ export const downloadReducer = createReducer<IDownloadState>(
   initialState,
   on(DownloadActions.downloadStart, (state, { download }) => ({
     ...state,
-    activeDownloads: [...state.activeDownloads, download],
+    activeDownloads: [
+      ...state.activeDownloads,
+      { ...download, status: "download" },
+    ],
   })),
   on(DownloadActions.downloadFail, (state, { id }) => ({
     ...state,
@@ -22,16 +25,17 @@ export const downloadReducer = createReducer<IDownloadState>(
   })),
   on(DownloadActions.updateDownloadProgress, (state, { id, progress }) => ({
     ...state,
-    activeDownloads: state.activeDownloads.map((current) => {
-      if (current.id === id) {
-        return {
-          ...current,
-          progress,
-        };
-      }
-
-      return current;
-    }),
+    activeDownloads: state.activeDownloads.map((current) => ({
+      ...current,
+      progress: current.id === id ? progress : current.progress,
+    })),
+  })),
+  on(DownloadActions.convertToMp3, (state, { id }) => ({
+    ...state,
+    activeDownloads: state.activeDownloads.map((download) => ({
+      ...download,
+      status: download.id === id ? "convert" : download.status,
+    })),
   })),
   on(DownloadActions.convertToMp3Success, (state, { id }) => ({
     ...state,

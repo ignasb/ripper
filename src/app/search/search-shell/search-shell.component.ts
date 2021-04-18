@@ -61,6 +61,7 @@ export class SearchShellComponent implements OnInit, OnDestroy {
     const download: IActiveDownload = {
       id: video.id,
       progress: 0,
+      status: "download",
       title: video.snippet.title,
       thumbnail: video.snippet.thumbnails.default.url,
     };

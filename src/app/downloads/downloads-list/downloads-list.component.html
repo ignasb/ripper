@@ -1,8 +1,8 @@
 <mat-list class="l-downloads">
-  <h2>Downloads({{ (downloads$ | async).length }})</h2>
+  <h2>Downloads({{ downloads.length }})</h2>
   <button
     mat-button
-    *ngFor="let download of downloads$ | async"
+    *ngFor="let download of downloads"
     (click)="cancel(download)"
   >
     <mat-list-item>
@@ -11,12 +11,14 @@
           <div class="c-download__title">
             <h4>{{ download.title }}</h4>
           </div>
-          <div class="c-video__controls">
-            <mat-icon>cancel</mat-icon>
-          </div>
+          <div class="c-video__controls"></div>
         </div>
-        <div class="l-status">
-          <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+        <div class="c-status">
+          <span class="c-status__label">{{ download.status }}</span>
+          <mat-progress-bar
+            mode="determinate"
+            value="{{ download.progress }}"
+          ></mat-progress-bar>
         </div>
       </div>
     </mat-list-item>

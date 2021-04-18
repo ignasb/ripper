@@ -19,11 +19,10 @@
 
   .c-download {
     display: flex;
-    flex: 0 0 100%;
+    height: 36px;
     width: 100%;
     flex-flow: row nowrap;
     align-items: center;
-    padding: 10px 0px;
 
     &__title {
       display: flex;
@@ -32,6 +31,7 @@
       overflow: hidden;
 
       h4 {
+        margin: 0;
         width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -41,9 +41,14 @@
     }
   }
 
-  .l-status {
+  .c-status {
     display: flex;
-    flex: 0 0 12px;
+    flex: 0 0 24px;
+    flex-flow: column nowrap;
+
+    &__label {
+      font-size: 12px;
+    }
   }
 
   .mat-list-item {

@@ -16,6 +16,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatCardModule } from "@angular/material/card";
 
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective],
@@ -34,6 +35,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     MatProgressSpinnerModule,
     MatBadgeModule,
     MatProgressBarModule,
+    MatCardModule,
   ],
   exports: [
     BrowserAnimationsModule,
@@ -50,6 +52,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     MatProgressSpinnerModule,
     MatBadgeModule,
     MatProgressBarModule,
+    MatCardModule,
   ],
 })
 export class SharedModule {}

@@ -3,4 +3,5 @@ export interface IActiveDownload {
   title: string;
   thumbnail: string;
   progress: number;
+  status: string;
 }

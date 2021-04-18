@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { combineLatest, Observable, Subscription } from "rxjs";
 import { ISearchResult, IYtVideoListResult } from "../../core/models";
-import { map } from "rxjs/operators";
+import { delay, map } from "rxjs/operators";
 import { IpcService } from "../../core/services/ipc/ipc.service";
 import { EMessages } from "../../../../lib/models";
 import { IAppState } from "../../store/reducers";
@@ -43,7 +43,7 @@ export class SearchShellComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const resSub = this.results$.subscribe(() => {
+    const resSub = this.results$.pipe(delay(0)).subscribe(() => {
       this.cd.detectChanges();
     });
     this.subscription.add(resSub);

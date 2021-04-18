@@ -1,9 +1,20 @@
 import { BrowserWindow } from "electron";
-import { readdir } from "fs";
+import { readdir, watch } from "fs";
 import { EMessages } from "./models";
 
 export const initializeFs = (win: BrowserWindow, path: string): void => {
   readMusicFiles(win, path);
+
+  let watchTimeoutId = null;
+  const WATCH_DELAY = 5000;
+  watch(path, () => {
+    if (!watchTimeoutId) {
+      watchTimeoutId = setTimeout(() => {
+        readMusicFiles(win, path);
+        watchTimeoutId = null;
+      }, WATCH_DELAY);
+    }
+  });
 };
 
 const readMusicFiles = (win: BrowserWindow, path: string): void => {

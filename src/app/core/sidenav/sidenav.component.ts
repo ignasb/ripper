@@ -1,6 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { Observable, Subscription } from "rxjs";
+import { delay, map } from "rxjs/operators";
 import { DownloadSelectors } from "../../store/selectors/download.selectors";
 import { ILink } from "../models";
 
@@ -10,7 +16,7 @@ import { ILink } from "../models";
   styleUrls: ["./sidenav.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnInit, OnDestroy {
   public links: ILink[] = [
     {
       icon: "search",
@@ -33,14 +39,29 @@ export class SidenavComponent implements OnInit {
 
   public isDownloadIconVisible$: Observable<boolean>;
 
-  constructor(private readonly downloadSelectors: DownloadSelectors) {
+  private subscriptions = new Subscription();
+
+  constructor(
+    private readonly downloadSelectors: DownloadSelectors,
+    private readonly cd: ChangeDetectorRef
+  ) {
     this.downloadsCount$ = this.downloadSelectors.activeDownloadsCount$;
     this.isDownloadIconVisible$ = this.downloadsCount$.pipe(
       map((count) => count > 0)
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const sub = this.downloadsCount$
+      .pipe(delay(0))
+      .subscribe(() => this.cd.detectChanges());
+
+    this.subscriptions.add(sub);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
   getRoute(link: ILink): string[] {
     return [link.path];

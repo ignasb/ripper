@@ -6,13 +6,13 @@ export const initializeFs = (win: BrowserWindow, path: string): void => {
   readMusicFiles(win, path);
 
   let watchTimeoutId = null;
-  const WATCH_DELAY = 5000;
+  const NOTIFICATION_DELAY = 5000;
   watch(path, () => {
     if (!watchTimeoutId) {
       watchTimeoutId = setTimeout(() => {
         readMusicFiles(win, path);
         watchTimeoutId = null;
-      }, WATCH_DELAY);
+      }, NOTIFICATION_DELAY);
     }
   });
 };

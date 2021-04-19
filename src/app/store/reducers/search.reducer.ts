@@ -26,11 +26,18 @@ export const searchReducer = createReducer<ISearchState>(
   on(SearchActions.searchVideosSuccess, (state, { videos }) => ({
     ...state,
     isLoading: false,
-    videos,
+    videos: videos.map((video) => ({
+      ...video,
+      snippet: {
+        ...video.snippet,
+        title: video.snippet.title.replace(/[^\w\s]/gi, ""),
+      },
+    })),
   })),
   on(SearchActions.searchVideosFail, (state, { error }) => ({
     ...state,
     isLoading: false,
+    videos: [],
     error,
   })),
   on(SearchActions.disableDownload, (state, { id }) => ({

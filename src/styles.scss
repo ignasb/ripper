@@ -1,3 +1,5 @@
+@import "material.scss";
+
 /* You can add global styles to this file, and also import other style files */
 html,
 body {
@@ -6,6 +8,28 @@ body {
 
   height: 100%;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: map-get($candy-app-accent, A400);
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: map-get($candy-app-accent, A200);
+}
+::-webkit-scrollbar-thumb:active {
+  background: map-get($candy-app-accent, A200);
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 /*

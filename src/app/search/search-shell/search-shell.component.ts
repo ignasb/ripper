@@ -7,7 +7,7 @@ import { EMessages } from "../../../../lib/models";
 import { IAppState } from "../../store/reducers";
 import { Store } from "@ngrx/store";
 import { DownloadActions, SearchActions } from "../../store/actions";
-import { IActiveDownload } from "../../core/models/download";
+import { EDownloadStatus, IActiveDownload } from "../../core/models/download";
 import { SearchSelectors } from "../../store/selectors/search.selectors";
 import { PlaylistSelectors } from "../../store/selectors/playlist.selectors";
 
@@ -61,7 +61,7 @@ export class SearchShellComponent implements OnInit, OnDestroy {
     const download: IActiveDownload = {
       id: video.id,
       progress: 0,
-      status: "download",
+      status: EDownloadStatus.Download,
       title: video.snippet.title,
       thumbnail: video.snippet.thumbnails.default.url,
     };

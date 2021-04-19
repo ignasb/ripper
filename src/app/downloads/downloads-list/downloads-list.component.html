@@ -14,10 +14,17 @@
           <div class="c-video__controls"></div>
         </div>
         <div class="c-status">
-          <span class="c-status__label">{{ download.status }}</span>
+          <span class="c-status__label">{{
+            download.status | downloadStatus: download.progress
+          }}</span>
           <mat-progress-bar
+            *ngIf="!isDownloadIndeterminate(download.status)"
             mode="determinate"
             value="{{ download.progress }}"
+          ></mat-progress-bar>
+          <mat-progress-bar
+            *ngIf="isDownloadIndeterminate(download.status)"
+            mode="indeterminate"
           ></mat-progress-bar>
         </div>
       </div>

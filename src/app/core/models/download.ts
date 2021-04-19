@@ -5,3 +5,8 @@ export interface IActiveDownload {
   progress: number;
   status: string;
 }
+
+export enum EDownloadStatus {
+  Download = "download",
+  Convert = "convert",
+}

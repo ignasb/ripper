@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   Input,
 } from "@angular/core";
-import { IActiveDownload } from "../../core/models/download";
+import { EDownloadStatus, IActiveDownload } from "../../core/models/download";
 
 @Component({
   selector: "app-downloads-list",
@@ -19,4 +19,8 @@ export class DownloadsListComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  isDownloadIndeterminate(status: EDownloadStatus): boolean {
+    return status === EDownloadStatus.Convert;
+  }
 }

@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { IActiveDownload } from "../../core/models/download";
+import { EDownloadStatus, IActiveDownload } from "../../core/models/download";
 import { DownloadActions } from "./../actions";
 
 export interface IDownloadState {
@@ -16,7 +16,7 @@ export const downloadReducer = createReducer<IDownloadState>(
     ...state,
     activeDownloads: [
       ...state.activeDownloads,
-      { ...download, status: "download" },
+      { ...download, status: EDownloadStatus.Download },
     ],
   })),
   on(DownloadActions.downloadFail, (state, { id }) => ({
@@ -34,7 +34,7 @@ export const downloadReducer = createReducer<IDownloadState>(
     ...state,
     activeDownloads: state.activeDownloads.map((download) => ({
       ...download,
-      status: download.id === id ? "convert" : download.status,
+      status: download.id === id ? EDownloadStatus.Convert : download.status,
     })),
   })),
   on(DownloadActions.convertToMp3Success, (state, { id }) => ({

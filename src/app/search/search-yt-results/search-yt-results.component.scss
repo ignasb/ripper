@@ -22,11 +22,12 @@
       flex: 0 0 120px;
     }
 
-    &__title {
+    &__details {
       display: flex;
       flex: 1 1;
       height: 100%;
       overflow: hidden;
+      flex-flow: column nowrap;
 
       h4 {
         width: 100%;
@@ -34,7 +35,19 @@
         text-overflow: ellipsis;
         padding: 0px 10px;
         text-align: left;
+        margin-bottom: 0;
       }
+    }
+
+    &__detail {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
+      mat-icon {
+        font-size: 1em;
+      }
+
+      font-size: 0.8em;
     }
 
     &__controls {

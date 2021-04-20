@@ -17,9 +17,10 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatCardModule } from "@angular/material/card";
+import { DurationPipe } from "./pipes/duration.pipe";
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective],
+  declarations: [PageNotFoundComponent, WebviewDirective, DurationPipe],
   imports: [
     BrowserAnimationsModule,
     CommonModule,
@@ -53,6 +54,7 @@ import { MatCardModule } from "@angular/material/card";
     MatBadgeModule,
     MatProgressBarModule,
     MatCardModule,
+    DurationPipe,
   ],
 })
 export class SharedModule {}

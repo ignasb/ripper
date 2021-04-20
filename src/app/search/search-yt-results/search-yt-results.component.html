@@ -12,12 +12,16 @@
           class="c-video__thumbnail"
           src="{{ video.snippet.thumbnails.default.url }}"
         />
-        <div class="c-video__title">
+        <div class="c-video__details">
           <h4>
             {{ video.snippet.title }}
-            <span>{{ video.contentDetails.duration }}</span>
           </h4>
-          <span> </span>
+          <span class="c-video__detail">
+            <mat-icon>schedule</mat-icon>
+            {{ video.contentDetails.duration | duration }}
+            <mat-icon>videocam</mat-icon>
+            {{ video.contentDetails.definition }}
+          </span>
         </div>
         <div class="c-video__status">
           <mat-icon

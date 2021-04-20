@@ -30,6 +30,8 @@ function createWindow(): BrowserWindow {
     icon: "ripper.png",
   });
 
+  win.removeMenu();
+
   if (serve) {
     win.webContents.openDevTools();
 

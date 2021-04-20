@@ -9,6 +9,10 @@
     flex-flow: column nowrap;
     overflow: auto;
     padding: 0px 30px;
+
+    mat-card {
+      margin-bottom: 12px;
+    }
   }
 
   .l-download {
@@ -35,7 +39,6 @@
         width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
-        padding: 0px 10px;
         text-align: left;
       }
     }
@@ -47,6 +50,9 @@
     flex-flow: column nowrap;
 
     &__label {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 6px;
       font-size: 12px;
     }
   }

@@ -1,33 +1,27 @@
-<mat-list class="l-downloads">
+<div class="l-downloads" *ngIf="downloads.length > 0">
   <h2>Downloads({{ downloads.length }})</h2>
-  <button
-    mat-button
-    *ngFor="let download of downloads"
-    (click)="cancel(download)"
-  >
-    <mat-list-item>
-      <div class="l-download">
-        <div class="c-download">
-          <div class="c-download__title">
-            <h4>{{ download.title }}</h4>
-          </div>
-          <div class="c-video__controls"></div>
+  <mat-card *ngFor="let download of downloads">
+    <div class="l-download">
+      <div class="c-download">
+        <div class="c-download__title">
+          <h4>{{ download.title }}</h4>
         </div>
-        <div class="c-status">
-          <span class="c-status__label">{{
-            download.status | downloadStatus: download.progress
-          }}</span>
-          <mat-progress-bar
-            *ngIf="!isDownloadIndeterminate(download.status)"
-            mode="determinate"
-            value="{{ download.progress }}"
-          ></mat-progress-bar>
-          <mat-progress-bar
-            *ngIf="isDownloadIndeterminate(download.status)"
-            mode="indeterminate"
-          ></mat-progress-bar>
-        </div>
+        <div class="c-video__controls"></div>
       </div>
-    </mat-list-item>
-  </button>
-</mat-list>
+      <div class="c-status">
+        <span class="c-status__label">{{
+          download.status | downloadStatus: download.progress
+        }}</span>
+        <mat-progress-bar
+          *ngIf="!isDownloadIndeterminate(download.status)"
+          mode="determinate"
+          value="{{ download.progress }}"
+        ></mat-progress-bar>
+        <mat-progress-bar
+          *ngIf="isDownloadIndeterminate(download.status)"
+          mode="indeterminate"
+        ></mat-progress-bar>
+      </div>
+    </div>
+  </mat-card>
+</div>

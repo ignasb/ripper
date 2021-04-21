@@ -1,6 +1,6 @@
 <div class="l-downloads" *ngIf="downloads.length > 0">
   <h2>Downloads({{ downloads.length }})</h2>
-  <mat-card *ngFor="let download of downloads">
+  <mat-card *ngFor="let download of downloads; trackBy: trackById">
     <div class="l-download">
       <div class="c-download">
         <div class="c-download__title">

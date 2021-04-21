@@ -23,4 +23,8 @@ export class DownloadsListComponent implements OnInit {
   isDownloadIndeterminate(status: EDownloadStatus): boolean {
     return status === EDownloadStatus.Convert;
   }
+
+  trackById(index: number, download: IActiveDownload): string {
+    return download.id;
+  }
 }

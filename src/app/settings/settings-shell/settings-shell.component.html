@@ -1,1 +1,6 @@
-<p>settings-shell works!</p>
+<app-settings-form
+  [apiKey]="ytApiKey$ | async"
+  [musicPath]="musicPath$ | async"
+  (onSubmit)="onSettingsSubmit($event)"
+></app-settings-form>
+<p>Version: 0.0.1</p>

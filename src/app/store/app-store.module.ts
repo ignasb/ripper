@@ -7,6 +7,7 @@ import { SearchSelectors } from "./selectors/search.selectors";
 import { EffectsModule } from "@ngrx/effects";
 import { DownloadEffects, SearchEffects } from "./effects";
 import { PlaylistSelectors } from "./selectors/playlist.selectors";
+import { ConfigSelectors } from "./selectors/config.selectors";
 
 @NgModule({
   declarations: [],
@@ -15,7 +16,12 @@ import { PlaylistSelectors } from "./selectors/playlist.selectors";
     StoreModule.forFeature("appState", reducers),
     StoreDevtoolsModule.instrument(),
   ],
-  providers: [DownloadSelectors, SearchSelectors, PlaylistSelectors],
+  providers: [
+    DownloadSelectors,
+    SearchSelectors,
+    PlaylistSelectors,
+    ConfigSelectors,
+  ],
   exports: [StoreModule, EffectsModule],
 })
 export class AppStoreModule {}

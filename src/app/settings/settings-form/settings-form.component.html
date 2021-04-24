@@ -1,0 +1,12 @@
+<form class="c-settings" [formGroup]="settings" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline">
+    <mat-label>Music folder</mat-label>
+    <input matInput formControlName="musicPath" />
+    <mat-icon matSuffix>drive_file_move</mat-icon>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>API Key</mat-label>
+    <input matInput formControlName="apiKey" />
+    <mat-icon matSuffix></mat-icon>
+  </mat-form-field>
+</form>

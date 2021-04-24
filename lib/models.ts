@@ -23,4 +23,10 @@ export enum EMessages {
   ConvertingToMp3Fail = "converting-to-mp3-fail",
   Error = "error",
   AvailableSongs = "available-songs",
+  InitConfig = "init-config",
+}
+
+export interface IConfig {
+  musicPath: string;
+  apiKey: string;
 }

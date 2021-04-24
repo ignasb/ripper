@@ -1,17 +1,28 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { Store } from "@ngrx/store";
 import { of } from "rxjs";
-import { catchError, map, switchMap, tap } from "rxjs/operators";
+import {
+  catchError,
+  map,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from "rxjs/operators";
+import { EMessages } from "../../../../lib/models";
+import { IpcService } from "../../core/services/ipc/ipc.service";
 import { SearchService } from "../../core/services/search/search.service";
 import { DownloadActions, SearchActions } from "../actions";
+import { ConfigSelectors } from "../selectors/config.selectors";
 
 @Injectable()
 export class SearchEffects {
   public searchVideos$ = createEffect(() =>
     this.actions$.pipe(
       ofType(SearchActions.searchVideos),
-      switchMap(({ query }) =>
-        this.searchService.searchVideos$(query).pipe(
+      withLatestFrom(this.configSelectors.ytApiKey$),
+      switchMap(([{ query }, apiKey]) =>
+        this.searchService.searchVideos$(query, apiKey).pipe(
           map(({ items }) =>
             SearchActions.searchVideosSuccess({ videos: items })
           ),
@@ -24,6 +35,12 @@ export class SearchEffects {
   public downloadStart$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DownloadActions.downloadStart),
+      tap(({ download }) => {
+        this.ipcService.send(EMessages.DownloadVideo, {
+          id: download.id,
+          title: download.title,
+        });
+      }),
       map(({ download }) => SearchActions.disableDownload({ id: download.id }))
     )
   );
@@ -45,6 +62,8 @@ export class SearchEffects {
 
   constructor(
     private readonly actions$: Actions,
-    private readonly searchService: SearchService
+    private readonly searchService: SearchService,
+    private readonly ipcService: IpcService,
+    private readonly configSelectors: ConfigSelectors
   ) {}
 }

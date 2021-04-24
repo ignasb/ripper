@@ -1,6 +1,10 @@
 import { Store } from "@ngrx/store";
-import { EMessages } from "../../../lib/models";
-import { DownloadActions, PlaylistActions } from "../store/actions";
+import { EMessages, IConfig } from "../../../lib/models";
+import {
+  DownloadActions,
+  PlaylistActions,
+  ConfigActions,
+} from "../store/actions";
 import { IAppState } from "../store/reducers";
 import { IpcService } from "./services/ipc/ipc.service";
 
@@ -38,9 +42,13 @@ export const appInitializer = (
 
   const onAvailableSongs = (event, songs) => {
     store.dispatch(PlaylistActions.initializePlaylist({ songs }));
-    console.log(songs);
   };
 
+  const onInitConfig = (event, config: IConfig) => {
+    store.dispatch(ConfigActions.initConfig({ config }));
+  };
+
+  ipcService.on(EMessages.DownloadVideo, onDowloadStarted);
   ipcService.on(EMessages.DownloadProgress, onProgressUpdate);
   ipcService.on(EMessages.DownloadFail, onDownloadError);
   ipcService.on(EMessages.DownloadSucess, onDownloadSuccess);
@@ -48,7 +56,7 @@ export const appInitializer = (
   ipcService.on(EMessages.ConvertingToMp3, onConvertToMp3);
   ipcService.on(EMessages.ConvertingToMp3Sucess, onConvertToMp3Success);
   ipcService.on(EMessages.ConvertingToMp3Fail, onConvertToMp3Fail);
-  ipcService.on(EMessages.DownloadVideo, onDowloadStarted);
 
   ipcService.on(EMessages.AvailableSongs, onAvailableSongs);
+  ipcService.on(EMessages.InitConfig, onInitConfig);
 };

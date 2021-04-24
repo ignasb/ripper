@@ -15,6 +15,10 @@ $iconDimensions: 32px;
     display: flex;
     flex-flow: column nowrap;
 
+    &:last-child {
+      align-self: flex-end;
+    }
+
     &--active {
       color: map-get($candy-app-primary, A700);
     }

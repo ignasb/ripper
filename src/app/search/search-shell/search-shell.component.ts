@@ -66,10 +66,6 @@ export class SearchShellComponent implements OnInit, OnDestroy {
       thumbnail: video.snippet.thumbnails.default.url,
     };
     this.store.dispatch(DownloadActions.downloadStart({ download }));
-    this.ipcService.send(EMessages.DownloadVideo, {
-      id: video.id,
-      title: video.snippet.title,
-    });
   }
 
   private getResults$(

@@ -9,30 +9,38 @@ import { IYtSearchResponse, IYtVideoListResponse } from "../../models";
 })
 export class SearchService {
   private baseApi = "https://youtube.googleapis.com/youtube/v3/";
-  private key = "AIzaSyAme90X3RnCgADZphuXHApfDRIn0X6vmA8";
   private maxResults = 10;
 
   constructor(private http: HttpClient) {}
 
-  private getSearchResults$(search: string): Observable<IYtSearchResponse> {
-    const { baseApi, key, maxResults } = this;
+  private getSearchResults$(
+    search: string,
+    key: string
+  ): Observable<IYtSearchResponse> {
+    const { baseApi, maxResults } = this;
     const path = `${baseApi}search?q=${search}&maxResults=${maxResults}&key=${key}`;
 
     return this.http.get<IYtSearchResponse>(path);
   }
 
-  private getVideosList$(ids: string[]): Observable<IYtVideoListResponse> {
-    const { baseApi, key } = this;
+  private getVideosList$(
+    ids: string[],
+    key: string
+  ): Observable<IYtVideoListResponse> {
+    const { baseApi } = this;
     const encodedIds = encodeURIComponent(ids.join(","));
     const path = `${baseApi}videos?part=snippet%2CcontentDetails%2Cstatistics&id=${encodedIds}&key=${key}`;
 
     return this.http.get<IYtVideoListResponse>(path);
   }
 
-  searchVideos$(search: string): Observable<IYtVideoListResponse> {
-    return this.getSearchResults$(search).pipe(
+  searchVideos$(search: string, key: string): Observable<IYtVideoListResponse> {
+    return this.getSearchResults$(search, key).pipe(
       switchMap((response) =>
-        this.getVideosList$(response.items.map((i) => i.id.videoId))
+        this.getVideosList$(
+          response.items.map((i) => i.id.videoId),
+          key
+        )
       )
     );
   }

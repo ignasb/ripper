@@ -18,7 +18,7 @@ export class SettingsShellComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public onSettingsSubmit(): void {
-    console.log("submitted settings");
+  public onConfigUpdate(): void {
+    console.log("submitted config");
   }
 }

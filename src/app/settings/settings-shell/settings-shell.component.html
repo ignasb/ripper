@@ -1,6 +1,6 @@
 <app-settings-form
   [apiKey]="ytApiKey$ | async"
   [musicPath]="musicPath$ | async"
-  (onSubmit)="onSettingsSubmit($event)"
+  (updateConfig)="onConfigUpdate()"
 ></app-settings-form>
 <p>Version: 0.0.1</p>

@@ -4,8 +4,11 @@ import {
   ChangeDetectionStrategy,
   Input,
   OnChanges,
+  EventEmitter,
+  Output,
 } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { IConfig } from "../../../../lib/models";
 
 @Component({
   selector: "app-settings-form",
@@ -19,6 +22,9 @@ export class SettingsFormComponent implements OnInit, OnChanges {
 
   @Input()
   public musicPath: string;
+
+  @Output()
+  public updateConfig = new EventEmitter<IConfig>();
 
   public settings: FormGroup;
 
@@ -37,5 +43,9 @@ export class SettingsFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     console.log(this);
+  }
+
+  onSubmit(): void {
+    this.updateConfig.emit();
   }
 }

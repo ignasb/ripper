@@ -1,10 +1,12 @@
 {
   "productName": "angular-electron",
   "directories": {
+    "buildResources": "resources",
     "output": "release/"
   },
   "files": [
     "**/*",
+    "./resources/**/*",
     "!**/*.ts",
     "!.github",
     "!.vscode",
@@ -37,7 +39,10 @@
     "target": ["dmg"]
   },
   "linux": {
-    "icon": "dist/assets/icons",
+    "icon": "resources/icons/icon.png",
     "target": ["AppImage"]
-  }
+  },
+  "extraFiles": [
+    "resources/*"
+  ]
 }

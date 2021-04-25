@@ -31,6 +31,7 @@
     "ffmpeg-static": "4.3.0",
     "fluent-ffmpeg": "2.1.2",
     "keytar": "7.6.0",
+    "rxjs": "6.6.6",
     "ytdl-core": "4.5.0"
   },
   "devDependencies": {
@@ -85,7 +86,6 @@
     "mocha": "8.3.2",
     "npm-run-all": "4.1.5",
     "prettier": "2.2.1",
-    "rxjs": "6.6.6",
     "spectron": "14.0.0",
     "ts-node": "9.1.1",
     "tslib": "2.1.0",
